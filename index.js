@@ -18,7 +18,7 @@ function createBot() {
    bot.settings.colorsEnabled = false;
 
    bot.once('spawn', () => {
-      console.log('[BotLog] Bot joined to the server');
+      console.log(`[BotLog] Bot joined to the server\nCurrent level: ${bot.experience.level}`);
       bot.chat(process.env.CHAT_PASS);
 
       // if (config.utils['anti-afk'].enabled) {
@@ -28,6 +28,8 @@ function createBot() {
       //    }
       // }
    });
+
+   bot.on('experience', () => console.log(`[BotLog] Reached level ${bot.experience.level}.`));
 
    bot.on('death', () => {
       console.log(
