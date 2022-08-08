@@ -49,7 +49,7 @@ function createBot() {
       )
    );
    bot.on('error', (err) =>
-      console.log(`[ERROR] ${err.message}`);
+      console.log(`[ERROR] ${err.message}`)
    );
 }
 
