@@ -5,15 +5,23 @@ require('dotenv').config();
 const noRestart = "no-restart";
 
 function createBot() {
-   if (!process.env.USER || !process.env.SERVER_IP || !process.env.CHAT_PASS)
-	throw new Error("Pleave provide `USER`, `SERVER_IP` & `CHAT_PASS` env variables");
-   const bot = mineflayer.createBot({
+   if (!process.env.USER || !process.env.PASS || !process.env.SERVER_IP || !process.env.CHAT_PASS)
+	throw new Error("Pleave provide `USER`, `PASS`, `SERVER_IP` & `CHAT_PASS` env variables");
+   const opts = {
+      checkTimeoutInterval: 1000 * 60 * 3, // 3min
       username: process.env.USER,
-     // password: process.env.PASS,
-      auth: process.env.AUTH_TYPE,
+      password: process.env.PASS,
+      auth: process.env.AUTH_TYPE,  
       host: process.env.SERVER_IP,
       version: "1.18.2",
-   });
+   }
+   let bot;
+   try {
+      bot = mineflayer.createBot(opts);
+   } catch(excp) {
+      delete opts[password];
+      bot = mineflayer.createBot(opts);
+   }
 
    bot.settings.colorsEnabled = false;
 
