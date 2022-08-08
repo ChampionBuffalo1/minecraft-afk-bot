@@ -5,7 +5,8 @@ require('dotenv').config();
 const noRestart = "no-restart";
 
 function createBot() {
-
+   if (!process.env.USER || !process.env.SERVER_IP || !process.env.CHAT_PASS)
+	throw new Error("Pleave provide `USER`, `SERVER_IP` & `CHAT_PASS` env variables");
    const bot = mineflayer.createBot({
       username: process.env.USER,
      // password: process.env.PASS,
@@ -17,15 +18,9 @@ function createBot() {
    bot.settings.colorsEnabled = false;
 
    bot.once('spawn', () => {
-      console.log('\x1b[33m[BotLog] Bot joined to the server', '\x1b[0m');
-      // if (!process.env.CHAT_PASS) throw new Error("Chat pass must be provided!");
+      console.log('[BotLog] Bot joined to the server');
       bot.chat(process.env.CHAT_PASS);
 
-      // setTimeout(() => {
-      //    console.log("Trying to jump");
-      //    bot.setControlState("forward", true);
-      // }, 1000);
-      
       // if (config.utils['anti-afk'].enabled) {
       //    bot.setControlState('jump', true);
       //    if (config.utils['anti-afk'].sneak) {
@@ -36,9 +31,7 @@ function createBot() {
 
    bot.on('death', () => {
       console.log(
-         `\x1b[33m[BotLog] Bot has been died and was respawned ${bot.entity.position}`,
-         '\x1b[0m'
-      );
+         `[BotLog] Bot has been died and was respawned ${bot.entity.position}`);
       bot.end(noRestart);
       // process.exit(0);
    });
@@ -52,13 +45,11 @@ function createBot() {
 
    bot.on('kicked', (reason) =>
       console.log(
-         '\x1b[33m',
-         `[BotLog] Bot was kicked from the server. Reason: \n${reason}`,
-         '\x1b[0m'
+         `[BotLog] Bot was kicked from the server. Reason: \n${reason}`
       )
    );
    bot.on('error', (err) =>
-      console.log(`\x1b[31m[ERROR] ${err.message}`, '\x1b[0m')
+      console.log(`[ERROR] ${err.message}`);
    );
 }
 
