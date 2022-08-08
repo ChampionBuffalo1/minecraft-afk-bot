@@ -16,7 +16,7 @@ function createBot() {
    	throw new Error("Pleave provide `USER`, `PASS`, `SERVER_IP` & `CHAT_PASS` env variables");
 
    const bot = mineflayer.createBot(opts); 
-   opts[password] = process.env.PASS;
+   opts['password'] = process.env.PASS;
    let lastLevel;
 
    bot.settings.colorsEnabled = false;
