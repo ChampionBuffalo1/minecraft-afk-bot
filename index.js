@@ -3,26 +3,21 @@ const config = require('./settings.json');
 require('dotenv').config();
 
 const noRestart = "no-restart";
-
+const opts = {
+      checkTimeoutInterval: 1000 * 60 * 3, // 3min
+      username: process.env.USER,
+      auth: process.env.AUTH_TYPE || 'microsoft',  
+      host: process.env.SERVER_IP,
+      version: "1.18.2",
+};
 
 function createBot() {
    if (!process.env.USER || !process.env.PASS || !process.env.SERVER_IP || !process.env.CHAT_PASS)
    	throw new Error("Pleave provide `USER`, `PASS`, `SERVER_IP` & `CHAT_PASS` env variables");
-   const opts = {
-      checkTimeoutInterval: 1000 * 60 * 3, // 3min
-      username: process.env.USER,
-      password: process.env.PASS,
-      auth: process.env.AUTH_TYPE,  
-      host: process.env.SERVER_IP,
-      version: "1.18.2",
-   }
-   let bot, lastLevel;
-   try {
-      bot = mineflayer.createBot(opts);
-   } catch(excp) {
-      delete opts[password];
-      bot = mineflayer.createBot(opts);
-   }
+
+   const bot = mineflayer.createBot(opts); 
+   opts[password] = process.env.PASS;
+   let lastLevel;
 
    bot.settings.colorsEnabled = false;
 
