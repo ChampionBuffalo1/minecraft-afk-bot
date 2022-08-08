@@ -16,13 +16,13 @@ function createBot() {
    	throw new Error("Pleave provide `USER`, `PASS`, `SERVER_IP` & `CHAT_PASS` env variables");
 
    const bot = mineflayer.createBot(opts); 
-//    opts['password'] = process.env.PASS;
    let lastLevel;
 
    bot.settings.colorsEnabled = false;
 
    bot.once('spawn', () => {
       console.log(`[BotLog] Bot joined to the server\nCurrent level: ${bot.experience.level}`);
+      opts['password'] = process.env.PASS;
       bot.chat(process.env.CHAT_PASS);
       lastLevel = bot.experience.level;
       // if (config.utils['anti-afk'].enabled) {
