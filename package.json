@@ -1,0 +1,14 @@
+{
+  "name": "minecraft-afk-bot",
+  "version": "0.1",
+  "description": "Afk bot for minecraft servers.",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "dotenv": "16.0.1",
+    "mineflayer": "^4.3.0"
+  }
+}

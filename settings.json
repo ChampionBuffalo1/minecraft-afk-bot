@@ -1,0 +1,22 @@
+{
+  "bot-account": {
+    "username": "armcplayer@gmail.com",
+    "password": "OOgaboogaboss",
+    "type": "microsoft"
+  },
+
+  "server": {
+    "ip": "craftbro.apexmc.co",
+    "port": 19999,
+    "version": "1.18.2"
+  },
+
+  "utils": {
+    "anti-afk": {
+      "enabled": false,
+      "sneak": false
+    },
+    "auto-reconnect": true,
+    "auto-reconnect-delay": 300000
+  }
+}
