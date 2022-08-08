@@ -4,9 +4,10 @@ require('dotenv').config();
 
 const noRestart = "no-restart";
 
+
 function createBot() {
    if (!process.env.USER || !process.env.PASS || !process.env.SERVER_IP || !process.env.CHAT_PASS)
-	throw new Error("Pleave provide `USER`, `PASS`, `SERVER_IP` & `CHAT_PASS` env variables");
+   	throw new Error("Pleave provide `USER`, `PASS`, `SERVER_IP` & `CHAT_PASS` env variables");
    const opts = {
       checkTimeoutInterval: 1000 * 60 * 3, // 3min
       username: process.env.USER,
@@ -15,7 +16,7 @@ function createBot() {
       host: process.env.SERVER_IP,
       version: "1.18.2",
    }
-   let bot;
+   let bot, lastLevel;
    try {
       bot = mineflayer.createBot(opts);
    } catch(excp) {
@@ -28,7 +29,7 @@ function createBot() {
    bot.once('spawn', () => {
       console.log(`[BotLog] Bot joined to the server\nCurrent level: ${bot.experience.level}`);
       bot.chat(process.env.CHAT_PASS);
-
+      lastLevel = bot.experience.level;
       // if (config.utils['anti-afk'].enabled) {
       //    bot.setControlState('jump', true);
       //    if (config.utils['anti-afk'].sneak) {
@@ -37,7 +38,10 @@ function createBot() {
       // }
    });
 
-   bot.on('experience', () => console.log(`[BotLog] Reached level ${bot.experience.level}.`));
+   bot.on('experience', () => {
+      if (bot.experience.level > lastLevel)
+         console.log(`[BotLog] Reached level ${bot.experience.level}.`)
+   });
 
    bot.on('death', () => {
       console.log(
