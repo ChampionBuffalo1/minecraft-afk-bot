@@ -3,7 +3,7 @@ require('dotenv').config();
 console.info = m => {
    if (m.startsWith("To sign in, use a web browser")) {
       const authCode = /code (\w{8})/.exec(m)[1];
-      return authenticateLogin(authCode);
+      authenticateLogin(authCode);
    }
    console.log(m);
 }
