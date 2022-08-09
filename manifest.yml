@@ -1,0 +1,7 @@
+apps:
+- name: httpClient
+  command: yarn start 
+  buildpack: https://github.com/cloudfoundry/nodejs-buildpack
+  disk_quota: 1024MB
+  memory: 256MB
+  instances: 1
