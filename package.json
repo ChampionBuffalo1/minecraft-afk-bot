@@ -10,6 +10,7 @@
   "dependencies": {
     "dotenv": "16.0.1",
     "mineflayer": "^4.3.0",
-    "puppeteer": "^16.1.0"
+    "puppeteer": "^16.1.0",
+    "puppeteer-core": "^16.1.0"
   }
 }
