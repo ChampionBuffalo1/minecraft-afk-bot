@@ -82,5 +82,6 @@ module.exports = class MinecraftBot {
         if (!this.bot) return;
         this.bot.quit(this.noReconnect);
         this.bot = null;
+        this.log.info("Bot has left the server!");
     }
 }
