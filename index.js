@@ -90,11 +90,11 @@ WENT_WRONG_MESG: //*[@id="idDiv_Finish_Title"]
 // Something went wrong
 */
 
-const CODE_XPATH = "//*[@id="otc"]";
-const EMAIL_XPATH = "//*[@id="i0116"]";
-const PASS_XPATH = "//*[@id="i0118"]";
-const NO_BUTTON_XPATH = "//*[@id="idBtn_Back"]";
-const STATUS_XPATH = "//*[@id="idDiv_Finish_Title"]";
+const CODE_XPATH = '//*[@id="otc"]';
+const EMAIL_XPATH = '//*[@id="i0116"]';
+const PASS_XPATH = '//*[@id="i0118"]';
+const NO_BUTTON_XPATH = '//*[@id="idBtn_Back"]';
+const STATUS_XPATH = '//*[@id="idDiv_Finish_Title"]';
 
 
 const authenticateLogin = async (authCode) => {
