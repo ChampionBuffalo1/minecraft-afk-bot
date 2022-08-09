@@ -13,8 +13,9 @@ const config = require('./settings.json');
 const http = require('http');
 
 const server = http.createServer((req, res) => {
-  res.writeHead(200);
-  res.end('Hello Ji');
+   res.setHeader("Content-Type", "text/html");
+   res.writeHead(200);
+    res.end(`<html><body><p>Hello ji</p></body></html>`);
 });
 server.listen(8080);
 
@@ -32,7 +33,6 @@ const createBot = () => {
    if (!process.env.USER || !process.env.PASS || !process.env.SERVER_IP || !process.env.CHAT_PASS)
    	throw new Error("Pleave provide `USER`, `PASS`, `SERVER_IP` & `CHAT_PASS` env variables");
 
-   return;
    const bot = mineflayer.createBot(opts); 
    let lastLevel;
 
