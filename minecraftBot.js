@@ -54,6 +54,7 @@ module.exports = class MinecraftBot {
     death = () => this.log.info(`Bot has been died and was respawned ${this.bot.entity.position}`);
     kicked = reason => this.log.info( `Bot was kicked from the server. Reason: \n${reason})`);
     botDown = reason => {
+        this.bot = null;
         if (reason !== this.noReconnect && this.config["auto-reconnect"]) {
             this.log.info(`Restarting bot in ${this.config["auto-reconnect-delay"] / (1000 * 60)} minutes!`);
             setTimeout(this.join.bind(this), this.config["auto-reconnect-delay"]);
