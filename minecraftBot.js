@@ -34,7 +34,7 @@ module.exports = class MinecraftBot {
         if(!this.bot) return;
         this.bot.once('spawn', this.spawn.bind(this));
         this.bot.on('death', this.death.bind(this));
-        this.bot.on('kick', this.kicked.bind(this));
+        this.bot.on('kicked', this.kicked.bind(this));
         this.bot.on('end', this.botDown.bind(this));
         this.bot.on('error', this.log.error);
     }
