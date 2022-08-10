@@ -41,7 +41,8 @@ module.exports = class MinecraftBot {
     
     // Listeners
     spawn = () => {
-        this.opts['password'] = process.env.PASS;
+        if (!this.opts['password'])
+            this.opts['password'] = process.env.PASS;
         this.bot.chat(process.env.CHAT_PASS);
         this.log.info("Bot has joined the server!");
         // Lame anti-afk but I dont need it rn so who cares
@@ -53,7 +54,6 @@ module.exports = class MinecraftBot {
     }
     death = () => this.log.info(`Bot has been died and was respawned ${this.bot.entity.position}`);
     kicked = reason => {
-        this.bot = null;
         this.log.info( `Bot was kicked from the server. Reason: \n${reason})`);
     }
     botDown = reason => {
