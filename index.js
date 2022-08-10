@@ -7,10 +7,9 @@ app.get('/', (_, res) => {
    res.status(200)
       .send("hello ji");
 });
-bot.registerEvent();
 
-// /admin/join
-// /join
+// Ex: 1. /admin/join
+//     2. /join
 app.get(`${process.env.ADMIN_PATH || ''}/:action`, (req, res) => {
    const action = req.params.action.toLowerCase();
    switch(action) {
