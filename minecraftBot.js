@@ -17,7 +17,7 @@ module.exports = class MinecraftBot {
             host: process.env.SERVER_IP,
             version: "1.18.2",
         };
-        this.bot = null;
+        this.bot = null;  
         this.log = Logger;
         this.config = {
             "anti-afk": {
@@ -25,18 +25,18 @@ module.exports = class MinecraftBot {
                 sneak: false
               },
               "auto-reconnect": true,
-              "auto-reconnect-delay": 1000 * 60 * 5 // Reconnect after 5 mins
+              "auto-reconnect-min-delay":  1000 * 60 * 2 // Min delay to 2 mins
+              "auto-reconnect-max-delay": 1000 * 60 * 5 // Max delay to 5 mins
         };
-        
     }
 
     registerEvent() {
         if(!this.bot) return;
         this.bot.once('spawn', this.spawn.bind(this));
-        this.bot.on('death', this.death.bind(this));
-        this.bot.on('kicked', this.kicked.bind(this));
         this.bot.on('end', this.botDown.bind(this));
         this.bot.on('error', this.log.error);
+        this.bot.on('death', this.death.bind(this));
+        this.bot.on('kicked', this.kicked.bind(this));
     }
     
     // Listeners
@@ -59,8 +59,9 @@ module.exports = class MinecraftBot {
     botDown = reason => {
         this.bot = null;
         if (reason !== this.noReconnect && this.config["auto-reconnect"]) {
-            this.log.info(`Restarting bot in ${this.config["auto-reconnect-delay"] / (1000 * 60)} minutes!`);
-            setTimeout(this.join.bind(this), this.config["auto-reconnect-delay"]);
+            const delay = this.getRandom(this.config["auto-reconnect-max-delay"], this.config["auto-reconnect-min-delay"]);
+            this.log.info(`Restarting bot in ${delay / (1000 * 60)} minutes!`);
+            this.timeout = setTimeout(this.join.bind(this), delay);
         }
     }
 
@@ -68,8 +69,9 @@ module.exports = class MinecraftBot {
     join() {
         if (this.bot) return;
         this.bot = mineflayer.createBot(this.opts); 
-        this.registerEvent();     
+        this.registerEvent();
     }
+    
     reconnect() {
         if(!this.bot) return; 
         this.leaveServer();
@@ -81,9 +83,15 @@ module.exports = class MinecraftBot {
         this.leaveServer();
         this.bot.end(this.noReconnect);
     }
+
     leaveServer() {
         if (!this.bot) return;
+        if (this.timeout)
+            clearTimeout(this.timeout)
         this.bot.quit(this.noReconnect);
         this.log.info("Bot has left the server!");
+    }
+    getRandom(max, min) {
+      return Math.random() * (max - min) + min;
     }
 }
