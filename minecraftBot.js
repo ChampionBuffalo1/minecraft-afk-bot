@@ -25,8 +25,8 @@ module.exports = class MinecraftBot {
                 sneak: false
               },
               "auto-reconnect": true,
-              "auto-reconnect-min-delay":  1000 * 60 * 2 // Min delay -> 2 mins
-              "auto-reconnect-max-delay": 1000 * 60 * 6 // Max delay -> 5 mins
+              "auto-reconnect-min-delay":  1000 * 60 * 2, // Min delay to 2 mins
+              "auto-reconnect-max-delay": 1000 * 60 * 5 // Max delay to 5 mins
         };
     }
 
