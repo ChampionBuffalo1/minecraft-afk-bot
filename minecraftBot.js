@@ -25,8 +25,8 @@ module.exports = class MinecraftBot {
                 sneak: false
               },
               "auto-reconnect": true,
-              "auto-reconnect-min-delay":  1000 * 60 * 2 // Min delay to 2 mins
-              "auto-reconnect-max-delay": 1000 * 60 * 5 // Max delay to 5 mins
+              "auto-reconnect-min-delay":  1000 * 60 * 2 // Min delay -> 2 mins
+              "auto-reconnect-max-delay": 1000 * 60 * 6 // Max delay -> 5 mins
         };
     }
 
@@ -60,7 +60,7 @@ module.exports = class MinecraftBot {
         this.bot = null;
         if (reason !== this.noReconnect && this.config["auto-reconnect"]) {
             const delay = this.getRandom(this.config["auto-reconnect-max-delay"], this.config["auto-reconnect-min-delay"]);
-            this.log.info(`Restarting bot in ${delay / (1000 * 60)} minutes!`);
+            this.log.info(`Restarting bot in ${Math.round(delay / (1000 * 60))} minutes!`);
             this.timeout = setTimeout(this.join.bind(this), delay);
         }
     }
